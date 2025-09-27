@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-
+/* ========= ROOT VARIABLES ========= */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,16 +16,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ========= EFFECTS ========= */
 .shadow-glow {
   box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
-  /* Adjust the color and blur */
   filter: drop-shadow(0 0 8px rgba(59, 122, 87, 0.6));
 }
 
-/* For the hover glow effect */
 .shadow-glow-hover {
   box-shadow: 0 0 20px rgba(0, 255, 0, 1);
-  /* Adjust the color and blur */
 }
 
 .glass-overlay {
@@ -33,21 +31,18 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: 85px;
-  /* or whatever fits logo+navbar+button */
+  height: 85px; /* navbar height */
   background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(4px); 
-  z-index: 49;
-  /* just below z-50 of your navbars */
+  backdrop-filter: blur(4px);
+  z-index: 49; /* just below navbars */
   transition: opacity 0.2s;
   border-radius: 1rem;
   pointer-events: none;
-  /* if needed */
 }
 
+/* ========= LINKS ========= */
 a {
   font-weight: 500;
-  /* color: #ffff; */
   text-decoration: inherit;
 }
 
@@ -55,6 +50,7 @@ a:hover {
   color: #000;
 }
 
+/* ========= BODY / TEXT ========= */
 body {
   margin: 0;
   display: flex;
@@ -68,10 +64,11 @@ h1 {
   line-height: 1.1;
 }
 
-h2{
+h2 {
   color: rgb(0, 92, 0);
 }
 
+/* ========= BUTTONS ========= */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -92,6 +89,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* ========= LIGHT MODE ========= */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -105,4 +103,93 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* ========= UTILITIES ========= */
+@layer utilities {
+  /* Gradient background animation (generic use if needed) */
+  @keyframes gradientFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  .animate-gradientFlow {
+    animation: gradientFlow 20s ease infinite;
+  }
+
+  /* Quote reveal on scroll (fade in + rise) */
+  @keyframes revealEngraved {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .reveal {
+    animation: revealEngraved 1.5s ease-out forwards;
+  }
+  .opacity-0 {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  /* ========= QUOTE CONTINUOUS FLOW ========= */
+  @keyframes flow {
+    0% {
+      background-position: 0% center;
+    }
+    50% {
+      background-position: 100% center;
+    }
+    100% {
+      background-position: 0% center;
+    }
+  }
+  .flowing-text {
+    background: linear-gradient(90deg, #14532d, #22c55e, #14532d);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: flow 8s ease-in-out infinite;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* soft depth */
+  }
+}
+
+/* Fade-in dropdown animation */
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 0.2s ease-out;
+}
+
+
+/* index.css or global CSS */
+/* These classes are referenced in Modal.js and SignInForm.js */
+.modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backdrop-blur-md {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }

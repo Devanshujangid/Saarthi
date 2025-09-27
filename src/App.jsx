@@ -1,35 +1,102 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+import logo from "./assets/MannSaarthi_Logo.png";
+import Chatbot from "./components/chatbot";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Resources from "./components/Resources";
+import Charts from "./components/Charts";
+import InfoTiles from "./components/InfoTiles";
+import Footer from "./components/Footer";
+import SoundPlayer from "./components/SoundPlayer";
+import CalmBackground from "./components/BackgroundAnimation";
+import QuoteSection from "./components/QuoteSection";
+import PeerSupportStories from "./components/PeerSupportStories";
+import CollegesTicker from "./components/CollegesTicker";
+import SignInForm from "./components/SignInForm";
+import Modal from "./components/model";
+
+export default function App() {
+  // --- Background images and quotes (rotates on page load) ---
+
+  const HERO_HEIGHT = 0.7 * window.innerHeight - 35;
+  const [showGlassOverlay, setShowGlassOverlay] = useState(false);
+  const [openIndex, setOpenIndex] = useState(null);
+
+  // line added by me for sign in page 
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // added a handler to open the modal
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+  useEffect(() => {
+    const onScroll = () => setShowGlassOverlay(window.scrollY > HERO_HEIGHT);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // --- Sample psych-educational resources (with id + languages where relevant) ---
+
+
+  // --- Sample survey data for charts ---
+
+  // --- Interactive Info tiles data (full) ---
+
+  // Tile open state for interactive reveal
+
+  // -----------------------------
+  // FILTER / SORT state and logic
+  // -----------------------------
+
+
+  // -----------------------------------------
+  // per-resource action mode + streaming logic
+  // -----------------------------------------
+
+
+  // Escape to close player
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="min-h-screen font-sans text-gray-800 bg-gray-50 overflow-x-hidden">
+      <CalmBackground />
+      {showGlassOverlay && <div className="glass-overlay" />}
+      {/*  */}
+      <Navbar openModal={openModal} />
+
+      {/* HERO */}
+      <Hero />
+
+      <main className="max-w-8xl mx-auto px-6 -mt-6 pb-16">
+        {/* RESOURCES GRID */}
+        <Resources />
+
+        <QuoteSection />
+
+        <PeerSupportStories />
+
+        <CollegesTicker />
+        {/* CHARTS */}
+        <Charts />
+
+        {/* SERVICES / INFO TILES */}
+        <InfoTiles />
+
+        {/* FOOTER */}
+        <Footer />
+
+      </main>
+      
+      Render modal conditionally
+      {modalOpen && (
+        <Modal onClose={closeModal}>
+          <SignInForm closeModal={closeModal} />
+        </Modal>
+      )}
+
+      <Chatbot />
+
+      <SoundPlayer />
+    </div>
+  );
 }
 
-export default App
