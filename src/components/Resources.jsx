@@ -219,154 +219,203 @@ export default function Resources() {
   }, [playerOpen]);
 
   return (
-    <section id="resources" className="mt-10 px-15">
-      <h2 className="text-4xl font-bold mb-4 pt-5">Psychoeducational Resources</h2>
-      <p className="text-gray-600 mb-6">Curated short reads, audios, and practical tools — quick to consume and easy to apply.</p>
+    <section id="resources" className="mt-10 px-4 sm:px-6 lg:px-16">
+      {/* <div className="max-w-6xl mx-auto"> */}
+      <div className="w-full max-w-[90rem] mx-auto">
+        <h2 className="text-3xl sm:text-3xl md:text-4xl font-bold mb-4 pt-5 sm:text-left">
+          Psychoeducational Resources
+        </h2>
+        <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-6 text-center sm:text-left">
+          Curated short reads, audios, and practical tools — quick to consume and easy to apply.
+        </p>
 
-      {/* FILTER UI */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
-        <div className="flex items-center gap-3 flex-wrap">
-          <div className="flex items-center gap-2 flex-wrap">
-            {categories.map((c) => (
-              <button key={c} onClick={() => setSelectedCategory(c)} className={`text-sm px-3 py-1 rounded-full border ${selectedCategory === c ? "bg-green-700 text-white border-green-700" : "bg-white text-gray-700 border-gray-200"} shadow-sm hover:scale-105 transition`}>
-                {c}
-              </button>
-            ))}
+
+        {/* FILTER UI */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap">
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setSelectedCategory(c)}
+                  className={`text-xs sm:text-sm px-3 py-1 rounded-full border ${selectedCategory === c
+                    ? "bg-green-700 text-white border-green-700"
+                    : "bg-white text-gray-700 border-gray-200"
+                    } shadow-sm hover:scale-105 transition`}
+                >
+                  {c}
+                </button>
+
+              ))}
+            </div>
+            <div className="ml-0 lg:ml-4">
+              <label className="sr-only">Language</label>
+              <select
+                value={selectedLanguage}
+                onChange={(e) => setSelectedLanguage(e.target.value)}
+                className="text-xs sm:text-sm rounded-full px-2 sm:px-3 py-1 border bg-white"
+              >
+                {languages.map((l) => (
+                  <option key={l} value={l}>
+                    {l}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div className="ml-0 lg:ml-4">
-            <label className="sr-only">Language</label>
-            <select value={selectedLanguage} onChange={(e) => setSelectedLanguage(e.target.value)} className="text-sm rounded-full px-3 py-1 border bg-white">
-              {languages.map((l) => <option key={l} value={l}>{l}</option>)}
+
+          <div className="flex items-center gap-3">
+            <label className="text-sm text-gray-500">Sort:</label>
+            <select
+              value={sortKey}
+              onChange={(e) => setSortKey(e.target.value)}
+              className="text-xs sm:text-sm rounded-full px-2 sm:px-3 py-1 border bg-white"
+            >
+              <option value="Newest">Newest</option>
+              <option value="A-Z">A - Z</option>
+              <option value="Z-A">Z - A</option>
             </select>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <label className="text-sm text-gray-500">Sort:</label>
-          <select value={sortKey} onChange={(e) => setSortKey(e.target.value)} className="text-sm rounded-full px-3 py-1 border bg-white">
-            <option value="Newest">Newest</option>
-            <option value="A-Z">A - Z</option>
-            <option value="Z-A">Z - A</option>
-          </select>
-        </div>
-      </div>
+        {/* Resources Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[13.5rem] grid-flow-row-dense gap-3">
+          {displayedResources.map((r, idx) => (
+            <article
+              key={r.id}
+              className={`relative rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all overflow-hidden bg-gray-200 ${idx % 5 === 0 ? "sm:col-span-0" : ""
+                } ${idx % 3 === 0 ? "row-span-2" : ""}`}
+              style={{
+                backgroundImage: r.image ? `url(${r.image})` : "none",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <div className="absolute bottom-0 left-0 w-full px-4 pt-1 pb-3 bg-gradient-to-t from-black-900/100 via-black-800/30 to-transparent rounded-b-2xl">
+                <div className="relative">
+                  <h3 className="text-lg font-semibold text-white pr-16">{r.title}</h3>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[13.5rem] grid-flow-row-dense gap-3">
-        {displayedResources.map((r, idx) => (
-          <article
-            key={r.id}
-            className={`
-                  relative rounded-2xl shadow-lg hover:shadow-xl
-                  transform hover:-translate-y-1 transition-all overflow-hidden
-                  bg-gray-200
-                  ${idx % 5 === 0 ? "sm:col-span-0" : ""} ${idx % 3 === 0 ? "row-span-2" : ""}
-                `}
-            style={{
-              backgroundImage: r.image ? `url(${r.image})` : "none",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="absolute bottom-0 left-0 w-full px-4 pt-1 pb-3 bg-gradient-to-t from-black-900/100 via-black-800/30 to-transparent  rounded-b-2xl">
-              <div className="relative">
-                <h3 className="text-lg font-semibold text-white pr-16">{r.title}</h3>
+                  <div className="absolute top-2 right-0 flex items-center gap-2">
+                    {r.tag && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-white/90 text-gray-800 shadow">
+                        {r.tag}
+                      </span>
 
-                <div className="absolute top-2 right-0 flex items-center gap-2">
-                  {r.tag && (
-                    <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-white/90 text-gray-800 shadow">
-                      {r.tag}
+                    )}
+                    <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-white/80 text-gray-800 shadow">
+                      {r.language}
                     </span>
-                  )}
-                  <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-white/80 text-gray-800 shadow">
-                    {r.language}
-                  </span>
-                </div>
-              </div>
-
-              <p className="mt-1 text-white/90 text-sm leading-relaxed">{r.excerpt}</p>
-
-              <div className="mt-3 flex flex-col gap-3">
-                {/* toggle */}
-                {(r.tag === "Audio" || r.tag === "Video") && (
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => toggleActionMode(r.id)}
-                      className={`text-sm px-3 py-1 rounded-full border ${actionModes[r.id] === "download" ? "bg-white text-gray-800 border-gray-200" : "bg-green-700 text-white border-green-700"} shadow-sm`}
-                      title={actionModes[r.id] === "download" ? "Currently: Download (click to switch to Stream)" : "Currently: Stream (click to switch to Download)"}
-                    >
-                      {actionModes[r.id] === "download" ? "Download mode" : "Stream mode"}
-                    </button>
-                    <div className="text-xs text-white/80 ml-2">Choose a language below to {actionModes[r.id] === "download" ? "download" : "stream"}.</div>
                   </div>
-                )}
+                </div>
 
-                <div className="flex flex-wrap gap-2">
-                  {Array.isArray(r.languages) && r.languages.length > 0 ? (
-                    r.languages.map((l, i) => (
+                <p className="mt-1 text-white/90 text-sm leading-relaxed">{r.excerpt}</p>
+
+                <div className="mt-3 flex flex-col gap-3">
+                  {/* toggle */}
+                  {(r.tag === "Audio" || r.tag === "Video") && (
+                    <div className="flex items-center gap-2">
                       <button
-                        key={i}
-                        onClick={() => {
-                          const mode = actionModes[r.id] || "stream";
-                          if (mode === "stream") openPlayer(r, l);
-                          else forceDownload(l.url, `${r.title}-${l.lang}`);
-                        }}
-                        className="px-3 py-1 rounded-lg bg-white/90 text-green-700 text-sm font-semibold hover:bg-green-100 transition shadow-sm"
+                        onClick={() => toggleActionMode(r.id)}
+                        className={`text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full border ${actionModes[r.id] === "download"
+                          ? "bg-white text-gray-800 border-gray-200"
+                          : "bg-green-700 text-white border-green-700"
+                          } shadow-sm`}
                       >
-                        {r.tag === "Audio" ? `🎧 ${l.lang}` : `🎬 ${l.lang}`}
+                        {actionModes[r.id] === "download" ? "Download mode" : "Stream mode"}
                       </button>
-                    ))
-                  ) : r.mediaUrl ? (
-                    <div className="flex gap-2">
-                      <a href={r.mediaUrl} target="_blank" rel="noreferrer" className="px-3 py-1 rounded-lg bg-white/90 text-green-700 text-sm font-semibold hover:bg-green-100 transition shadow-sm">
-                        Open media
-                      </a>
+
+                      <div className="text-xs text-white/80 ml-2">
+                        Choose a language below to {actionModes[r.id] === "download" ? "download" : "stream"}.
+                      </div>
                     </div>
-                  ) : (
-                    <button className="flex-1 py-2 px-5 rounded-xl bg-white text-green-800 font-semibold shadow-lg hover:bg-green-100 hover:scale-105 transition-all duration-300 ease-in-out">
-                      Read
-                    </button>
                   )}
+
+                  <div className="flex flex-wrap gap-2">
+                    {Array.isArray(r.languages) && r.languages.length > 0 ? (
+                      r.languages.map((l, i) => (
+                        <button
+                          key={i}
+                          onClick={() => {
+                            const mode = actionModes[r.id] || "stream";
+                            if (mode === "stream") openPlayer(r, l);
+                            else forceDownload(l.url, `${r.title}-${l.lang}`);
+                          }}
+                          className="px-2 sm:px-3 py-1 rounded-lg bg-white/90 text-green-700 text-xs sm:text-sm font-semibold hover:bg-green-100 transition shadow-sm"
+                        >
+                          {r.tag === "Audio" ? `🎧 ${l.lang}` : `🎬 ${l.lang}`}
+                        </button>
+
+                      ))
+                    ) : r.mediaUrl ? (
+                      <div className="flex gap-2">
+                        <a
+                          href={r.mediaUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-3 py-1 rounded-lg bg-white/90 text-green-700 text-sm font-semibold hover:bg-green-100 transition shadow-sm"
+                        >
+                          Open media
+                        </a>
+                      </div>
+                    ) : (
+                      <button className="flex-1 py-2 px-4 sm:px-5 text-xs sm:text-sm rounded-xl bg-white text-green-800 font-semibold shadow-lg hover:bg-green-100 hover:scale-105 transition-all duration-300 ease-in-out">
+                        Read
+                      </button>
+
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </article>
-        ))}
-      </div>
+            </article>
+          ))}
+        </div>
 
-      {/* PLAYER MODAL */}
-      {playerOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setPlayerOpen(false)} />
-          <div className="relative z-10 max-w-3xl w-full bg-white rounded-xl shadow-xl p-4">
-            <div className="flex justify-between items-center mb-3">
-              <div>
-                <div className="text-sm text-gray-600">{playerConfig.title}</div>
-                <div className="text-xs text-gray-500">Language: {playerConfig.lang}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <button onClick={() => forceDownload(playerConfig.src, `${playerConfig.title}-${playerConfig.lang}`)} className="px-3 py-1 text-sm rounded-full border bg-white">
-                  Download
-                </button>
-                <button onClick={() => setPlayerOpen(false)} className="px-3 py-1 text-sm rounded-full border bg-white">Close</button>
-              </div>
-            </div>
+        {/* PLAYER MODAL */}
+        {playerOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setPlayerOpen(false)} />
+            <div className="relative z-10 max-w-3xl w-full bg-white rounded-xl shadow-xl p-4">
+              <div className="flex flex-col [@media(min-width:450px)]:flex-row [@media(min-width:450px)]:justify-between [@media(min-width:450px)]:items-center gap-3 mb-3">
+                <div>
+                  <div className="text-sm text-gray-600">{playerConfig.title}</div>
+                  <div className="text-xs text-gray-500">Language: {playerConfig.lang}</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => forceDownload(playerConfig.src, `${playerConfig.title}-${playerConfig.lang}`)}
+                    className="px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full border bg-white"
+                  >
+                    Download
+                  </button>
 
-            <div className="w-full">
-              {playerConfig.type === "audio" ? (
-                <audio controls className="w-full" src={playerConfig.src}>
-                  <source src={playerConfig.src} />
-                  Your browser does not support the audio element.
-                </audio>
-              ) : (
-                <video controls className="w-full rounded" src={playerConfig.src}>
-                  <source src={playerConfig.src} />
-                  Your browser does not support the video element.
-                </video>
-              )}
+                  <button
+                    onClick={() => setPlayerOpen(false)}
+                    className="px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full border bg-white"
+                  >
+                    Close
+                  </button>
+
+                </div>
+              </div>
+
+              <div className="w-full">
+                {playerConfig.type === "audio" ? (
+                  <audio controls className="w-full" src={playerConfig.src}>
+                    <source src={playerConfig.src} />
+                    Your browser does not support the audio element.
+                  </audio>
+                ) : (
+                  <video controls className="w-full rounded" src={playerConfig.src}>
+                    <source src={playerConfig.src} />
+                    Your browser does not support the video element.
+                  </video>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </section>
+
   );
 }

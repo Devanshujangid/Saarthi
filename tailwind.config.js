@@ -17,5 +17,5 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [], // Remove the @tailwindcss/filters plugin here
 }

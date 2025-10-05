@@ -14,7 +14,7 @@ import QuoteSection from "./components/QuoteSection";
 import PeerSupportStories from "./components/PeerSupportStories";
 import CollegesTicker from "./components/CollegesTicker";
 import SignInForm from "./components/SignInForm";
-import Modal from "./components/model";
+import Modal from "./components/Modal";
 
 export default function App() {
   // --- Background images and quotes (rotates on page load) ---
@@ -59,14 +59,14 @@ export default function App() {
   return (
     <div className="min-h-screen font-sans text-gray-800 bg-gray-50 overflow-x-hidden">
       <CalmBackground />
-      {showGlassOverlay && <div className="glass-overlay" />}
+      {/* {showGlassOverlay && <div className="glass-overlay" />} */}
       {/*  */}
       <Navbar openModal={openModal} />
 
       {/* HERO */}
       <Hero />
 
-      <main className="max-w-8xl mx-auto px-6 -mt-6 pb-16">
+      <main className="max-w-8xl mx-auto px-1 sm:px-6 -mt-6 pb-6">
         {/* RESOURCES GRID */}
         <Resources />
 
@@ -85,8 +85,7 @@ export default function App() {
         <Footer />
 
       </main>
-      
-      Render modal conditionally
+
       {modalOpen && (
         <Modal onClose={closeModal}>
           <SignInForm closeModal={closeModal} />

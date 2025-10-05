@@ -1,9 +1,11 @@
 #root {
-  max-width: 1280px;
+  width: 100%; /* Allow it to take full width */
+  max-width: 100%; /* Remove the 1280px constraint */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
+
 
 .logo {
   height: 6em;

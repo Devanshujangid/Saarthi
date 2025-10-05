@@ -53,23 +53,24 @@ a:hover {
 /* ========= BODY / TEXT ========= */
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  display: block; /* Remove flex here */
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
+/* 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
+} */
 
 h2 {
   color: rgb(0, 92, 0);
 }
 
 /* ========= BUTTONS ========= */
-button {
+/* button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -78,7 +79,7 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
-}
+} */
 
 button:hover {
   border-color: #646cff;
@@ -192,4 +193,36 @@ button:focus-visible {
 .backdrop-blur-md {
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
+}
+
+/* index.css */
+@media (max-width: 768px) {
+  #root {
+    padding: 0rem;
+  }
+
+  .card {
+    padding: 0em;
+  }
+/* 
+  h1 {
+    font-size: 2.5em;
+  } */
+}
+
+/* styles.css */
+@media (min-width: 850px) {
+  .navd-flex {
+    display: flex !important;
+  }
+  .navd-hidden {
+    display: none !important;
+  }
+  .navd-block {
+    display: block !important;
+  }
+  .navd-padding {
+    padding: 0 5rem !important;
+  }
+
 }

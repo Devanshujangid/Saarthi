@@ -38,7 +38,8 @@ export default function Charts() {
   const COLORS = ["#3B7A57", "#6C8C7F", "#A3BFA8", "#88A09E"];
 
   return (
-    <section className="mt-37 mb-15 grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+    <section className="mt-37 mb-15 grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-6 gap-y-6 items-stretch px-4 lg:px-0">
+
       <div className="col-span-2 bg-white rounded-2xl p-4 shadow">
         <h3 className="font-semibold mb-3">Monthly survey snapshot</h3>
         <div style={{ width: "100%", height: 260 }}>

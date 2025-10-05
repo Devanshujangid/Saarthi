@@ -44,30 +44,23 @@ export default function PeerSupportStories() {
   }, []);
 
   return (
-    <section className="relative py-20 bg-gray-50">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+    <section className="relative py-16 sm:py-20 bg-gray-50">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 sm:mb-12">
         Peer Support Stories
       </h2>
 
       <div
-        className="flex items-center justify-center gap-4 max-w-3xl mx-auto px-4"
+        className="flex flex-col items-center justify-center gap-4 max-w-3xl mx-auto px-4"
         onMouseEnter={stopAutoPlay}
         onMouseLeave={startAutoPlay}
       >
-        <button
-          onClick={prevStory}
-          className="p-3 rounded-full bg-white shadow hover:bg-gray-100"
-        >
-          <ChevronLeft className="w-6 h-6 text-gray-600" />
-        </button>
-
-        <div className="flex-1 relative bg-white/90 backdrop-blur-md shadow-xl rounded-2xl p-8 text-center text-lg text-gray-700 font-medium min-h-[160px] flex flex-col justify-center transition-all duration-500 ease-in-out">
-          <div className="flex-1 flex items-center justify-center">
+        <div className="w-full relative bg-white/90 backdrop-blur-md shadow-xl rounded-2xl px-4 py-6 sm:p-8 text-center text-base sm:text-lg text-gray-700 font-medium min-h-[140px] sm:min-h-[160px] flex flex-col justify-center transition-all duration-500 ease-in-out">
+          <div className="flex-1 flex items-center justify-center leading-relaxed">
             {peerStories[index].text}
           </div>
 
-          {/* Fancy Gradient Progress Bar */}
-          <div className="absolute bottom-0 left-0 w-full h-2 rounded-b-2xl overflow-hidden mt-2">
+          {/* Gradient Progress Bar */}
+          <div className="absolute bottom-0 left-0 w-full h-2 rounded-b-2xl overflow-hidden">
             <div
               id="progress-bar-fill"
               className="h-2 rounded-b-2xl"
@@ -81,37 +74,50 @@ export default function PeerSupportStories() {
           </div>
         </div>
 
-        <button
-          onClick={nextStory}
-          className="p-3 rounded-full bg-white shadow hover:bg-gray-100"
-        >
-          <ChevronRight className="w-6 h-6 text-gray-600" />
-        </button>
+        {/* Swipe Buttons */}
+        <div className="flex gap-4 mt-4">
+          <button
+            onClick={prevStory}
+            className="p-2 sm:p-3 rounded-full bg-white shadow hover:bg-gray-100"
+            aria-label="Previous story"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
+          </button>
+
+          <button
+            onClick={nextStory}
+            className="p-2 sm:p-3 rounded-full bg-white shadow hover:bg-gray-100"
+            aria-label="Next story"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
+          </button>
+        </div>
       </div>
 
+
       {/* Progress Dots */}
-      <div className="flex justify-center gap-2 mt-6">
+      <div className="flex justify-center gap-2 mt-5 sm:mt-6">
         {peerStories.map((_, i) => (
           <button
             key={i}
             onClick={() => setIndex(i)}
-            className={`!w-1 !h-1 !rounded-full transition ${
-              index === i ? "bg-gray-800 scale-110" : "bg-gray-400 opacity-50"
-            }`}
+            className={`w-2 h-2 rounded-full transition duration-300 ${index === i ? "bg-gray-800 scale-110" : "bg-gray-400 opacity-50"
+              }`}
           />
         ))}
       </div>
 
-      <p className="mt-6 text-center text-sm text-gray-500">
+      <p className="mt-5 sm:mt-6 text-center text-xs sm:text-sm text-gray-500">
         *Anonymous recovery wins shared with hope*
       </p>
 
       <style>{`
-        @keyframes fillBar {
-          0% { width: 0%; }
-          100% { width: 100%; }
-        }
-      `}</style>
+    @keyframes fillBar {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+  `}</style>
     </section>
+
   );
 }
